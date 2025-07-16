@@ -119,6 +119,7 @@ export default function FeedbackForm() {
             <div className="form-group name-sec">
               <label htmlFor="name">Name</label>
               <input
+              className="form-control"
                 type="text"
                 required
                 value={name}
@@ -130,6 +131,7 @@ export default function FeedbackForm() {
             <div className="form-group email-sec">
               <label htmlFor="email">Email ID</label>
               <input
+              className="form-control"
                 type="email"
                 id="email"
                 value={email}
@@ -166,7 +168,7 @@ export default function FeedbackForm() {
             })}
           </div>
           <div className="feedback-submit-btn">
-            <input type="submit" value="Submit" />
+            <input className="form-control" type="submit" value="Submit" />
           </div>
         </div>
 

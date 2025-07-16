@@ -63,12 +63,6 @@ const Need = () => {
           <div className="need-grid">
             <div className="need-text">
               <div className="mission-card">
-                <h3>Ambuvians is on a mission to address these problems</h3>
-                <p>
-                  Ambuvians is dedicated to solving critical healthcare challenges,
-                  making quality medical solutions accessible to everyone. We simplify
-                  the complex healthcare system to ensure no one is left behind.
-                </p>
                 <div className="features-grid">
                   {features.map((feature, index) => (
                     <div key={index} className="feature-item">

@@ -326,53 +326,61 @@ const Footer = () => {
         </div>
       </div>
       
-      {/* Newsletter Section - Full Width */}
+      {/* Newsletter Section */}
       <div className="footer__newsletter-outer">
-        <div className="footer__container">
-          <div className="footer__newsletter">
-            <div className="footer__newsletter-content">
+        <div className="footer__newsletter">
+          <div className="footer__newsletter-content">
+            <div className="footer__newsletter-text">
               <h3 className="footer__newsletter-title">Subscribe to our Newsletter</h3>
-              <p className="footer__newsletter-description">Stay updated with our latest news and offers</p>
-              <form 
-                className="footer__newsletter-form"
-                onSubmit={handleNewsletterSubmit}
-                noValidate
-              >
-                <div className="footer__newsletter-group">
-                  <input
-                    type="email"
-                    placeholder="Your email address"
-                    className="footer__newsletter-input"
-                    aria-label="Email address for newsletter subscription"
-                    aria-invalid={submitStatus.message && !submitStatus.success}
-                    disabled={isSubmitting}
-                    required
-                  />
-                  <button 
-                    type="submit" 
-                    className={`footer__newsletter-button ${isSubmitting ? 'footer__newsletter-button--loading' : ''}`}
-                    aria-label="Subscribe to newsletter"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Subscribing...' : 'Subscribe'}
-                  </button>
-                </div>
-                
-                {submitStatus.message && (
-                  <p 
-                    className={`footer__newsletter-status ${submitStatus.success ? 'footer__newsletter-status--success' : 'footer__newsletter-status--error'}`}
-                    role="status"
-                    aria-live="polite"
-                  >
-                    {submitStatus.message}
-                  </p>
-                )}
-                
-                <p className="footer__newsletter-hint">
-                  We respect your privacy. Unsubscribe at any time.
-                </p>
-              </form>
+              <p className="footer__newsletter-description">Get the latest updates, news and product offers</p>
             </div>
+            
+            <form 
+              className="footer__newsletter-form"
+              onSubmit={handleNewsletterSubmit}
+              noValidate
+            >
+              <div className="footer__newsletter-group">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="footer__newsletter-input"
+                  aria-label="Email address for newsletter subscription"
+                  aria-invalid={submitStatus.message && !submitStatus.success}
+                  disabled={isSubmitting}
+                  required
+                />
+                <button 
+                  type="submit" 
+                  className={`footer__newsletter-button ${isSubmitting ? 'footer__newsletter-button--loading' : ''}`}
+                  aria-label="Subscribe to newsletter"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <span className="footer__button-loader"></span>
+                      Subscribing...
+                    </>
+                  ) : (
+                    'Subscribe'
+                  )}
+                </button>
+              </div>
+              
+              {submitStatus.message && (
+                <div 
+                  className={`footer__newsletter-status ${submitStatus.success ? 'footer__newsletter-status--success' : 'footer__newsletter-status--error'}`}
+                  role="status"
+                  aria-live="polite"
+                >
+                  {submitStatus.message}
+                </div>
+              )}
+              
+              <p className="footer__newsletter-hint">
+                We respect your privacy. Unsubscribe at any time.
+              </p>
+            </form>
           </div>
         </div>
       </div>
