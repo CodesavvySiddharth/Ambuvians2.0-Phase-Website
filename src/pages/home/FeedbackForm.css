@@ -1,193 +1,282 @@
 .feedback-comp {
   position: relative;
+  padding: 0 15px;
 }
 
 .main-feedback-section {
   display: flex;
-  margin: 50px 0;
+  margin: 30px 0;
+  gap: 20px;
 }
 
-.feedback-header h1 {
-  color: #4d4d4d;
+/* Feedback Heading */
+.feedback-heading {
+  color: #1a1a2e;
   text-align: center;
-  font-family: Inter;
-  font-size: 38px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
 }
+
+.feedback-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+  border-radius: 2px;
+}
+
 label {
-  padding-left: 10px;
+  padding-left: 8px;
+  font-size: 14px;
 }
 
 .feedback-comp .feedback-form-left {
-  margin: 0 0 0 20px;
   flex: 50%;
   background-color: #f1e4e5;
-  border-radius: 20px;
+  border-radius: 16px;
   text-align: center;
-  padding: 50px;
-  box-shadow: 5px 5px 20px 1px grey;
+  padding: 30px;
+  box-shadow: 3px 3px 15px 0px rgba(0,0,0,0.1);
 }
 
 .feedback-comp .feedback-form-left .para {
-  font-size: 1.5vw;
-  padding: 0 0 10px;
-  margin-bottom: 10px;
+  font-size: 15px;
+  margin-bottom: 8px;
+  line-height: 1.4;
 }
 
 .feedback-comp .type {
   background-color: white;
-  padding: 20px;
-  border-radius: 18px;
+  padding: 15px;
+  border-radius: 14px;
+  margin: 15px 0;
 }
 
 .type .type-checks {
   display: flex;
   justify-content: center;
+  gap: 15px;
 }
 
 .type-checks input:hover {
   cursor: pointer;
 }
+
 .type h2 {
-  padding-bottom: 10px;
+  padding-bottom: 8px;
+  font-size: 16px;
+  margin: 0 0 8px 0;
 }
 
 .type label {
-  padding-right: 10px;
-  margin-right: 10px;
+  padding-right: 6px;
+  margin-right: 6px;
+  font-size: 14px;
 }
 
 .user-feedback textarea {
   width: 100%;
-  margin: 20px 0;
-  padding: 5px;
-  border-radius: 15px;
-  border: 2px solid #fd0808;
-  padding-left: 20px;
-}
-
-.name-sec label {
-  font-size: 1.11vw;
-}
-
-.name-sec input {
-  width: 100%;
-  height: 35px;
-  border-radius: 50px;
-  margin-bottom: 10px;
-  border: 2px solid #fd0808;
+  margin: 12px 0;
   padding: 10px;
-  font-size: 15px;
+  border-radius: 12px;
+  border: 2px solid #fd0808;
+  min-height: 100px;
+  font-size: 14px;
+  resize: vertical;
 }
 
-.email-sec label {
-  font-size: 1.11vw;
+/* Form Elements */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
+.form-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+label {
+  padding-left: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.name-sec input,
 .email-sec input {
   width: 100%;
-  border: 2px solid #fd0808;
-  height: 35px;
+  height: 32px;
   border-radius: 50px;
-  margin-bottom: 10px;
-  padding: 10px;
-  font-size: 15px;
+  margin-bottom: 8px;
+  border: 2px solid #fd0808;
+  padding: 0 12px;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
+/* Name and Email Sections */
 .name-sec,
 .email-sec {
-  text-align: left;
+  margin-bottom: 0;
 }
 
 .rate-us {
   background-color: aliceblue;
-  padding: 15px;
-  border-radius: 20px;
-  margin-top: 10px;
-  font-size: 20px;
+  padding: 12px;
+  border-radius: 16px;
+  margin: 12px 0;
+  font-size: 16px;
+}
+
+.rate-us h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.rate-us label {
+  display: inline-block;
+  cursor: pointer;
+  padding: 5px;
+  margin: 0 2px;
+  position: relative;
 }
 
 .rate-us input[type="radio"] {
-  display: none;
-}
-.type-checks input[type="radio"]:after {
-  width: 12px;
-  height: 12px;
-  border-radius: 15px;
-  top: -2px;
-  left: -1px;
-  position: relative;
-  background-color: #d1d3d1;
-  content: "";
-  display: inline-block;
-  visibility: visible;
-  border: 2px solid white;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-.type-checks input[type="radio"]:checked:after {
-  width: 12px;
-  height: 12px;
-  border-radius: 15px;
-  top: -2px;
-  left: -1px;
-  position: relative;
-  background-color: #fd0808;
-  content: "";
-  display: inline-block;
-  visibility: visible;
-  border: 1px solid #fd0808;
-}
 .star {
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 28px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
+}
+
+.rate-us:hover .star {
+  transform: scale(1.1);
+}
+
+.rate-us .star:hover,
+.rate-us .star:hover ~ .star,
+.rate-us input:checked ~ .star {
+  color: #e4e5e9 !important;
+}
+
+.rate-us input:checked + .star,
+.rate-us input:checked ~ .star:hover,
+.rate-us .star:hover {
+  color: #ffc107 !important;
+  transform: scale(1.2);
+}
+
+.rate-us input:hover {
+  margin: 25px 0;
+  text-align: center;
+}
+
+.feedback-submit-btn {
+  text-align: center;
+  margin-top: 15px;
 }
 
 .feedback-submit-btn input {
-  width: 200px;
+  width: 180px;
   color: white;
-  height: 40px;
+  height: 36px;
   border: none;
-  border-radius: 20px;
-  font-size: 20px;
-  margin: 20px 0;
-  background: rgb(244, 243, 246);
+  border-radius: 18px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
   background: linear-gradient(
     45deg,
     rgba(250, 100, 100, 1) 0%,
-    rgba(253, 8, 8, 1) 30%,
-    rgba(253, 8, 8, 1) 70%,
+    rgba(253, 8, 8, 1) 50%,
     rgba(250, 100, 100, 1) 100%
   );
 }
 
 .feedback-submit-btn input:hover {
-  scale: 1.1;
-  transition: 0.3s;
-  cursor: pointer;
+  transform: scale(1.05);
 }
 
 .feedback-comp .feedback-img {
   flex: 50%;
-  font-size: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@media (max-width: 770px) {
-  .feedback-comp {
-    margin: 5px;
+.feedback-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+  }
+  
+  .section-lead {
+    font-size: 1rem;
+    padding: 0 1rem;
   }
 
   .main-feedback-section {
     flex-direction: column-reverse;
-    display: flex;
-    margin: 5px 0;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    width: 100%;
+  }
+
+  .feedback-comp {
+    margin: 5px;
   }
 
   .feedback-header h1 {
-    margin: 50px 0 20px 0;
-    font-size: 30px;
+    font-size: 28px;
   }
-
+  
+  .rate-us .star {
+    font-size: 24px;
+    padding: 3px;
+  }
+  
+  .rate-us label {
+    margin: 0 1px;
+  }
+  
   .feedback-comp .feedback-form-left {
     margin-left: 0;
     padding: 15px;

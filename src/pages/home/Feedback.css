@@ -1,78 +1,146 @@
 .feedback {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+  position: relative;
+  overflow: hidden;
 }
+
 .feedback-heading {
-  color: #4d4d4d;
+  color: #1a1a2e;
   text-align: center;
-  font-family: Inter;
-  font-size: 38px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
 }
+
+.feedback-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+  border-radius: 2px;
+}
+
+.feedback-cards-container {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .feedback-cards {
   display: flex;
-  width: 90%;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  overflow-x: scroll;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  padding: 2rem 0;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: #ff6b6b transparent;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .feedback-cards::-webkit-scrollbar {
-  display: none;
+  height: 6px;
 }
+
+.feedback-cards::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 0 20px;
+  border-radius: 10px;
+}
+
+.feedback-cards::-webkit-scrollbar-thumb {
+  background-color: #ff6b6b;
+  border-radius: 10px;
+}
+
+.feedback-cards::-webkit-scrollbar-thumb:hover {
+  background: #ff4757;
+}
+
 .feedback-card {
+  flex: 0 0 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px;
-  height: 400px;
-  padding: 2rem 1rem;
-  background-color: #fff;
-  box-shadow: 1px 1px 3px #000;
-  gap: 0.5rem;
-  margin: 2rem 1rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  scroll-snap-align: start;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  height: 360px;
 }
+
+.feedback-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 107, 107, 0.2);
+}
+
 .feedback-imgs {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  border: 1px solid var(--muted-color, #bdbdbd);
-  margin-left: 5rem;
-  margin-right: 5rem;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
 }
+
+.feedback-card:hover .feedback-imgs {
+  transform: scale(1.05);
+}
+
 .feedback-para {
-  color: var(--second-text-color, #737373);
+  color: #6c757d;
   text-align: center;
-  font-family: Plus Jakarta Sans;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 26px; /* 162.5% */
-  letter-spacing: 0.2px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-clamp: 3;
+  text-overflow: ellipsis;
 }
+
+.feedback-stars {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
 .feedback-name {
-  color: var(--primary-color, #23a6f0);
-  font-family: Plus Jakarta Sans;
-  font-size: 14px;
-  font-style: normal;
+  color: #1a1a2e;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 24px; /* 171.429% */
-  letter-spacing: 0.2px;
+  margin: 0.25rem 0;
+  transition: all 0.3s ease;
 }
+
 .feedback-text {
-  color: var(--text-color, #252b42);
-  font-family: Plus Jakarta Sans;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px; /* 171.429% */
-  letter-spacing: 0.2px;
+  color: #6c757d;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0;
 }
 
 @media screen and (min-width: 2651px) {

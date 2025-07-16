@@ -54,10 +54,7 @@ export default function FeedbackForm() {
 
   return (
     <div className="feedback-comp">
-      <div className="feedback-header">
-        <h1>FeedBack Form</h1>
-      </div>
-
+      <h1 className="feedback-heading">Feedback Form</h1>
       <form onSubmit={handleSubmit} className="main-feedback-section">
         <div className="feedback-form-left">
           <div className="para">
@@ -118,26 +115,29 @@ export default function FeedbackForm() {
               onChange={(e) => setFeedBack(e.target.value)}
             ></textarea>
           </div>
-          <div className="name-sec">
-            <label htmlFor="name">Name</label> <br />
-            <input
-              type="text"
-              required
-              value={name}
-              onChange={handleNameChange}
-              placeholder="Enter Your Name"
-            />
-            {nameError && <span className="error-message">{nameError}</span>}
-          </div>
-          <div className="email-sec">
-            <label htmlFor="Email ID">Email ID</label> <br />
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="Enter Your Email"
-            />
+          <div className="form-row">
+            <div className="form-group name-sec">
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                required
+                value={name}
+                onChange={handleNameChange}
+                placeholder="Enter Your Name"
+              />
+              {nameError && <span className="error-message">{nameError}</span>}
+            </div>
+            <div className="form-group email-sec">
+              <label htmlFor="email">Email ID</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="Enter Your Email"
+              />
+            </div>
           </div>
           <div className="rate-us">
             <h4>Rate Us</h4>

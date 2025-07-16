@@ -5,16 +5,32 @@ import club from "../../assets/images/club.webp";
 import school from "../../assets/images/school.webp";
 
 const Partners = () => {
+  const partners = [
+    { id: 1, logo: teific, alt: "TEIFIC" },
+    { id: 2, logo: kiet, alt: "KIET Group of Institutions" },
+    { id: 3, logo: club, alt: "Tech Club" },
+    { id: 4, logo: school, alt: "School of Engineering" },
+  ];
+
   return (
-    <div className="partners">
-      <h2 className="partners-heading">Our Partners</h2>
-      <div className="partners-logos">
-        <img src={teific} alt="teific" className="partners-logo" />
-        <img src={kiet} alt="kiet" className="partners-logo" />
-        <img src={club} alt="club" className="partners-logo" />
-        <img src={school} alt="school" className="partners-logo" />
+    <section className="partners" id="partners">
+      <h2 className="partners-heading">Our Valued Partners</h2>
+      <div className="partners-container">
+        <div className="partners-logos">
+          {partners.map((partner) => (
+            <img
+              key={partner.id}
+              src={partner.logo}
+              alt={partner.alt}
+              className="partners-logo"
+              loading="lazy"
+              onMouseEnter={(e) => e.currentTarget.classList.add('hovered')}
+              onMouseLeave={(e) => e.currentTarget.classList.remove('hovered')}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

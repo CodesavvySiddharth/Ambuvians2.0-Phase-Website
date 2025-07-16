@@ -1,106 +1,177 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faXmark, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import logo from "../assets/images/ambu logo.webp";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState(null);
+  const location = useLocation();
 
-  const handleScroll = () => {
-    if (
-      document.body.scrollTop > 40 ||
-      document.documentElement.scrollTop > 40
-    ) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-  };
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 40;
+      if (scrolled !== isScrolled) {
+        setIsScrolled(scrolled);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isScrolled]);
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setOpenSubmenu(null);
+  }, [location]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    if (!isMenuOpen) {
+      setOpenSubmenu(null);
+    }
   };
 
-  React.useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+  const toggleSubmenu = (index) => {
+    setOpenSubmenu(openSubmenu === index ? null : index);
+  };
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const navItems = [
+    { path: "/", label: "Home" },
+    { path: "/about", label: "About Us" },
+    { 
+      path: "/services", 
+      label: "Services",
+      submenu: [
+        { path: "/categorized_ambulance", label: "Categorized Ambulance" },
+        { path: "/Medicine_delivery", label: "Medicine Delivery" },
+        { path: "/home_lab_test", label: "Home Lab Test" }
+      ]
+    },
+    { path: "/hiring", label: "Careers" },
+    { path: "/contact", label: "Contact Us" }
+  ];
 
   return (
-    <header>
-      <div id="navbar" style={{ height: isScrolled ? "7vh" : "8vh" }}>
-        <div id="logo">
-          <a href="/">
-            <img
-              src={logo}
-              alt="ambuvians Logo"
-              id="logo1"
-              style={{ height: isScrolled ? "7vh" : "8vh" }}
-            />
-          </a>
-        </div>
-        <div className="right-header">
-          <div>
-            <ul className="links right-header-element">
-              <li>
-                <Link to="/">Home</Link>
+    <header className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`}>
+      <div className="navbar__container">
+        <Link to="/" className="navbar__logo">
+          <img 
+            src={logo} 
+            alt="Ambuvians Logo" 
+            className="navbar__logo-img"
+          />
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="navbar__desktop-nav">
+          <ul className="navbar__nav-list">
+            {navItems.map((item) => (
+              <li key={item.path} className="navbar__nav-item">
+                <div className="navbar__nav-link-wrapper">
+                  <Link 
+                    to={item.path} 
+                    className={`navbar__nav-link ${
+                      location.pathname === item.path ? 'navbar__nav-link--active' : ''
+                    }`}
+                  >
+                    {item.label}
+                    {item.submenu && (
+                      <FontAwesomeIcon icon={faChevronDown} className="navbar__dropdown-icon" />
+                    )}
+                  </Link>
+                </div>
+                {item.submenu && (
+                  <div className="navbar__dropdown">
+                    {item.submenu.map((subItem) => (
+                      <Link 
+                        key={subItem.path} 
+                        to={subItem.path}
+                        className="navbar__dropdown-item"
+                      >
+                        {subItem.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-              <li>
-                <Link to="/services">Services</Link>
-              </li>
-              <li>
-                <Link to="/hiring">Join Us</Link>
-              </li>
-              <li>
-                <Link to="/contact">Contact Us</Link>
-              </li>
-              <li className="login-btn">
-                <Link to="/login">Login | Sign Up</Link>
-              </li>
-            </ul>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              gap: "1vw",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            ))}
+          </ul>
+        </nav>
+
+        <div className="navbar__right">
+          {/* CTA Button */}
+          <Link to="/login" className="navbar__cta">
+            Login | Sign Up
+          </Link>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="navbar__menu-button"
+            onClick={toggleMenu}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
           >
-            <div className="toggle_btn" onClick={toggleMenu}>
-              <FontAwesomeIcon icon={isMenuOpen ? faXmark : faBars} />
-            </div>
-          </div>
+            <FontAwesomeIcon icon={isMenuOpen ? faXmark : faBars} className="navbar__menu-icon" />
+          </button>
         </div>
       </div>
-      <div className={`dropdown_menu ${isMenuOpen ? "open" : ""}`}>
-        <div>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
+
+      {/* Mobile Navigation */}
+      <div className={`navbar__mobile ${isMenuOpen ? 'navbar__mobile--open' : ''}`}>
+        <ul className="navbar__mobile-list">
+          {navItems.map((item, index) => (
+            <li key={item.path} className="navbar__mobile-item">
+              <div className="navbar__mobile-link-wrapper">
+                <Link 
+                  to={item.path} 
+                  className="navbar__mobile-link"
+                  onClick={() => !item.submenu && setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+                {item.submenu && (
+                  <button 
+                    className="navbar__mobile-dropdown-toggle"
+                    onClick={() => toggleSubmenu(index)}
+                    aria-expanded={openSubmenu === index}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faChevronDown} 
+                      className={`navbar__mobile-dropdown-icon ${openSubmenu === index ? 'rotate-180' : ''}`} 
+                    />
+                  </button>
+                )}
+              </div>
+              {item.submenu && (
+                <div 
+                  className={`navbar__mobile-submenu ${openSubmenu === index ? 'open' : ''}`}
+                >
+                  {item.submenu.map((subItem) => (
+                    <Link
+                      key={subItem.path}
+                      to={subItem.path}
+                      className="navbar__mobile-submenu-item"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {subItem.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/services">Services</Link>
-            </li>
-            <li>
-              <Link to="/hiring">Join Us</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
+          ))}
+        </ul>
+        
+        <div className="navbar__mobile-cta">
+          <Link to="/contact" className="navbar__cta">
+            Get in Touch
+          </Link>
         </div>
       </div>
     </header>

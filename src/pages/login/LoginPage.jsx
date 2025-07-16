@@ -24,12 +24,7 @@ const LoginPage = () => {
       </div>
       <div className="right">
         <div className="head">
-          <div className="rightImageConatiner">
-            <img
-              src={Logo}
-              alt=""
-            />
-          </div>
+          
           <div className="Ambuvians2">
             <span>
               Ambuvians <span className="ambu">Healthcare</span>{" "}

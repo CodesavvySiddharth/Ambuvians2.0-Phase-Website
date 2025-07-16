@@ -1,195 +1,449 @@
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./Footer.css";
-import play from "../assets/images/play-store.svg";
-import apple from "../assets/images/apple.svg";
-import insta from "../assets/images/insta.svg";
-import whatsapp from "../assets/images/whatsapp.svg";
-import x from "../assets/images/x.svg";
-import linkedin from "../assets/images/linkedin.svg";
-import location from "../assets/images/Location.webp";
-import gmail from "../assets/images/Gmail.svg";
-import call from "../assets/images/call.svg";
 
-function Footer() {
+// Icons
+import playStoreIcon from "../assets/images/play-store.svg";
+import appStoreIcon from "../assets/images/apple.svg";
+import instagramIcon from "../assets/images/insta.svg";
+import whatsappIcon from "../assets/images/whatsapp.svg";
+import twitterIcon from "../assets/images/x.svg";
+import linkedinIcon from "../assets/images/linkedin.svg";
+import locationIcon from "../assets/images/Location.webp";
+import emailIcon from "../assets/images/Gmail.svg";
+import phoneIcon from "../assets/images/call.svg";
+
+const Footer = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const currentYear = new Date().getFullYear();
+
+  // Show/hide back to top button based on scroll position
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    // Set initial state
+    toggleVisibility();
+
+    // Add scroll event listener
+    window.addEventListener('scroll', toggleVisibility);
+
+    // Clean up
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
+  // Smooth scroll to top
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  // Newsletter form state
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({
+    success: false,
+    message: ''
+  });
+
+  // Handle newsletter form submission
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const emailInput = form.querySelector('input[type="email"]');
+    const email = emailInput.value.trim();
+    
+    // Basic email validation
+    if (!email) {
+      setSubmitStatus({
+        success: false,
+        message: 'Please enter your email address'
+      });
+      return;
+    }
+    
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setSubmitStatus({
+        success: false,
+        message: 'Please enter a valid email address'
+      });
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitStatus({ success: false, message: '' });
+    
+    try {
+      // Simulate API call (replace with actual API call)
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Here you would typically send the email to your backend
+      console.log('Subscribing email:', email);
+      
+      setSubmitStatus({
+        success: true,
+        message: 'Thank you for subscribing to our newsletter!'
+      });
+      
+      // Reset form after successful submission
+      form.reset();
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus({ success: false, message: '' });
+      }, 5000);
+      
+    } catch (error) {
+      console.error('Subscription failed:', error);
+      setSubmitStatus({
+        success: false,
+        message: 'Failed to subscribe. Please try again later.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const socialLinks = [
+    {
+      name: "Instagram",
+      url: "https://www.instagram.com/official.ambuvians/",
+      icon: instagramIcon,
+      className: "footer__social-link--instagram"
+    },
+    {
+      name: "WhatsApp",
+      url: "https://wa.me/+7505853812",
+      icon: whatsappIcon,
+      className: "footer__social-link--whatsapp"
+    },
+    {
+      name: "Twitter",
+      url: "https://www.threads.net/@official.ambuvians",
+      icon: twitterIcon,
+      className: "footer__social-link--twitter"
+    },
+    {
+      name: "LinkedIn",
+      url: "https://www.linkedin.com/company/ambuvians-healthcare-pvt-ltd/",
+      icon: linkedinIcon,
+      className: "footer__social-link--linkedin"
+    }
+  ];
+
+  const quickLinks = [
+    { name: "Home", path: "/" },
+    { name: "About Us", path: "/about" },
+    { name: "Services", path: "/services" },
+    { name: "Careers", path: "/careers" },
+    { name: "Contact", path: "/contact" },
+    { name: "Enquiry", path: "/enquiry" }
+  ];
+
+  const services = [
+    { name: "Categorized Ambulance", path: "/services/categorized-ambulance" },
+    { name: "Medicine Delivery", path: "/services/medicine-delivery" },
+    { name: "Ambuvian Cloud", path: "/services/ambuvian-cloud" },
+    { name: "Home Lab Tests", path: "/services/home-lab-tests" }
+  ];
+
+  const contactInfo = [
+    {
+      icon: locationIcon,
+      text: "4th Floor TBI KIET Group Of Institutions, Ghaziabad Delhi NCR 201206",
+      type: "address"
+    },
+    {
+      icon: emailIcon,
+      text: "contact@ambuvians.in",
+      type: "email"
+    },
+    {
+      icon: emailIcon,
+      text: "info@ambuvians.in",
+      type: "email"
+    },
+    {
+      icon: phoneIcon,
+      text: "+91 75058 53812",
+      type: "tel"
+    },
+    {
+      icon: phoneIcon,
+      text: "+91 86307 29931",
+      type: "tel"
+    }
+  ];
+
   return (
-    <div className="footer">
-      <div className="top-footer">
-        <div className="left1">
-          <h2 className="headings">
-            India’s First Unified Health Care Services
-          </h2>
-          <div>
-            <h3 className="headings">Get the app</h3>
-            <div className="apk">
-              <abbr title="Download Now !">
-                <button>
-                  <div>
-                    <img src={play} alt="" className="play-store-img" />
-                  </div>
-                  <div>
-                    <p className="apk-p">
-                      Get It On <br />
-                      <span>Google Play</span>
-                    </p>
-                  </div>
-                </button>
-              </abbr>
-              <abbr title="Download Now !">
-                <button>
-                  <div>
-                    <img src={apple} alt="" className="apple-store-img" />
-                  </div>
-                  <div>
-                    <p className="apk-p">
-                      Download On The <br />
-                      <span>App Store</span>
-                    </p>
-                  </div>
-                </button>
-              </abbr>
-            </div>
-          </div>
-          <div>
-            <h3 className="headings">Follow us on</h3>
-            <div className="icons">
-              <abbr title="instagram" className="first-icon">
-                <a
-                  href="https://www.instagram.com/official.ambuvians/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img src={insta} alt="instagram icon" />
-                </a>
-              </abbr>
-              <abbr title="whatsapp" className="second-icon">
-                <a
-                  href="https://wa.me/+7505853812"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img src={whatsapp} alt="whatsapp icon" />
-                </a>
-              </abbr>
-              <abbr title="twitter" className="third-icon">
-                <a href="https://www.threads.net/@official.ambuvians">
-                  <img src={x} alt="twitter icon" />
-                </a>
-              </abbr>
-              <abbr title="linkedin" className="fourth-icon">
-                <a href="https://www.linkedin.com/company/ambuvians-healthcare-pvt-ltd/?viewAsMember=true">
-                  <img src={linkedin} alt="linkedin icon" />
-                </a>
-              </abbr>
-            </div>
-          </div>
-        </div>
-        <div className="links-section">
-          <div className="Knowus">
-            <h2>Know Us</h2>
-            <ul>
-              <li className="nav-item">
-                <span>
-                  <a href="/">Home</a>
-                </span>
-              </li>
-              <li>
-                <span>
-                  <a href="/about">Enquiry</a>
-                </span>
-              </li>
-              <li>
-                <span>
-                  <a href="https://heyzine.com/flip-book/c538e2deab.html#page/1">
-                    Handbook
-                  </a>
-                </span>
-              </li>
-              <li>
-                <span>
-                  <a href="/hiring">Join Us</a>
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div className="Services">
-            <h2>Services</h2>
-            <ul>
-              <li>
-                <span>
-                  <a href="/services">Categorized Ambulance</a>
-                </span>
-              </li>
-              <li>
-                <span>
-                  <a href="/services">Medicine Delivery</a>
-                </span>
-              </li>
-              <li>
-                <span>
-                  <a href="/services">Ambuvian Cloud</a>
-                </span>
-              </li>
-              <li>
-                <span>
-                  <a href="/services">Home Lab Tests</a>
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div className="contact">
-            <h2 className="about-h2">Contact Us</h2>
-            <ul>
-              <li>
-                <img
-                  className="contact-icon"
-                  src={location}
-                  alt="google map icon"
-                />
-                <span>
-                  <p>
-                    <a
-                      href="geo:28.752470765577947, 77.49913956776183"
-                      target="_blank"
-                      className="add"
-                      rel="noreferrer"
+    <footer className="footer">
+      <div className="footer__top">
+        <div className="footer__container">
+          <div className="footer__grid">
+            {/* Quick Links */}
+            <div className="footer__links-section">
+              <h3 className="footer__links-title">Quick Links</h3>
+              <ul className="footer__links-list">
+                {quickLinks.map((link) => (
+                  <li key={link.path} className="footer__links-item">
+                    <Link 
+                      to={link.path} 
+                      className="footer__link"
+                      onClick={() => window.scrollTo(0, 0)}
                     >
-                      4th Floor TBI KIET Group Of Institutions
-                      <br />
-                      Ghaziabad Delhi NCR 201206
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            {/* Our Services */}
+            <div className="footer__links-section">
+              <h3 className="footer__links-title">Our Services</h3>
+              <ul className="footer__links-list">
+                {services.map((service) => (
+                  <li key={service.path} className="footer__links-item">
+                    <Link to={service.path} className="footer__link">
+                      {service.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            {/* Get the App */}
+            <div className="footer__links-section">
+              <h3 className="footer__links-title">Get the App</h3>
+              <div className="footer__app-buttons">
+                <a 
+                  href="#" 
+                  className="footer__app-button"
+                  aria-label="Download from Google Play"
+                >
+                  <img 
+                    src={playStoreIcon} 
+                    alt="" 
+                    className="footer__app-icon" 
+                    loading="lazy"
+                  />
+                  <div className="footer__app-info">
+                    <span className="footer__app-availability">Get It On</span>
+                    <span className="footer__app-store">Google Play</span>
+                  </div>
+                </a>
+                
+                <a 
+                  href="#" 
+                  className="footer__app-button"
+                  aria-label="Download from App Store"
+                  style={{ marginTop: '10px' }}
+                >
+                  <img 
+                    src={appStoreIcon} 
+                    alt="" 
+                    className="footer__app-icon" 
+                    loading="lazy"
+                  />
+                  <div className="footer__app-info">
+                    <span className="footer__app-availability">Download on the</span>
+                    <span className="footer__app-store">App Store</span>
+                  </div>
+                </a>
+              </div>
+              
+              <div className="footer__social" style={{ marginTop: '1.5rem' }}>
+                <h3 className="footer__section-title">Follow Us</h3>
+                <div className="footer__social-links">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`footer__social-link ${social.className}`}
+                      aria-label={`Follow us on ${social.name}`}
+                    >
+                      <img 
+                        src={social.icon} 
+                        alt={social.name} 
+                        className="footer__social-icon"
+                        loading="lazy"
+                      />
                     </a>
-                  </p>
-                </span>
-              </li>
-              <li>
-                <img className="contact-icon" src={gmail} alt="gmail icon" />
-                <span>
-                  <p>
-                    <a href="mailto:contact@ambuvians.in">
-                      contact@ambuvians.in
-                    </a>
-                    <br />
-                    <a href="mailto:info@ambuvians.in ">info@ambuvians.in</a>
-                  </p>
-                </span>
-              </li>
-              <li>
-                <img className="contact-icon" src={call} alt="ringtone icon" />
-                <span>
-                  <p>
-                    <a href="tel:+7505853812">7505853812</a>
-                    <br />
-                    <a href="tel:+8630729931">8630729931</a>
-                  </p>
-                </span>
-              </li>
-            </ul>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* Contact Us */}
+            <div className="footer__links-section">
+              <h3 className="footer__links-title">Contact Us</h3>
+              <ul className="footer__contact-info">
+                {contactInfo.map((contact, index) => (
+                  <li key={index} className="footer__contact-item">
+                    <div className="footer__contact-icon">
+                      <img 
+                        src={contact.icon} 
+                        alt="" 
+                        loading="lazy"
+                      />
+                    </div>
+                    {contact.type === 'email' ? (
+                      <a 
+                        href={`mailto:${contact.text}`}
+                        className="footer__contact-link"
+                      >
+                        {contact.text}
+                      </a>
+                    ) : contact.type === 'tel' ? (
+                      <a 
+                        href={`tel:${contact.text.replace(/\D/g, '')}`}
+                        className="footer__contact-link"
+                      >
+                        {contact.text}
+                      </a>
+                    ) : (
+                      <span className="footer__contact-text">
+                        {contact.text}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          
+          <div className="footer__tagline">
+            India's First Unified Health Care Services
           </div>
         </div>
       </div>
-      <hr />
-      <div className="copyright">
-        <h6>&#169; AMBUvians Healthcare Pvt. Ltd.</h6>
+      
+      {/* Newsletter Section - Full Width */}
+      <div className="footer__newsletter-outer">
+        <div className="footer__container">
+          <div className="footer__newsletter">
+            <div className="footer__newsletter-content">
+              <h3 className="footer__newsletter-title">Subscribe to our Newsletter</h3>
+              <p className="footer__newsletter-description">Stay updated with our latest news and offers</p>
+              <form 
+                className="footer__newsletter-form"
+                onSubmit={handleNewsletterSubmit}
+                noValidate
+              >
+                <div className="footer__newsletter-group">
+                  <input
+                    type="email"
+                    placeholder="Your email address"
+                    className="footer__newsletter-input"
+                    aria-label="Email address for newsletter subscription"
+                    aria-invalid={submitStatus.message && !submitStatus.success}
+                    disabled={isSubmitting}
+                    required
+                  />
+                  <button 
+                    type="submit" 
+                    className={`footer__newsletter-button ${isSubmitting ? 'footer__newsletter-button--loading' : ''}`}
+                    aria-label="Subscribe to newsletter"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+                  </button>
+                </div>
+                
+                {submitStatus.message && (
+                  <p 
+                    className={`footer__newsletter-status ${submitStatus.success ? 'footer__newsletter-status--success' : 'footer__newsletter-status--error'}`}
+                    role="status"
+                    aria-live="polite"
+                  >
+                    {submitStatus.message}
+                  </p>
+                )}
+                
+                <p className="footer__newsletter-hint">
+                  We respect your privacy. Unsubscribe at any time.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+      
+      <div className="footer__bottom">
+        <div className="footer__container">
+          <div className="footer__copyright">
+            &copy; {currentYear} Ambuvians Healthcare. All rights reserved.
+          </div>
+          <div className="footer__legal-links">
+            <Link to="/privacy-policy" className="footer__legal-link">
+              Privacy Policy
+            </Link>
+            <span className="footer__separator">|</span>
+            <Link to="/terms" className="footer__legal-link">
+              Terms of Service
+            </Link>
+            <span className="footer__separator">|</span>
+            <Link to="/cookies" className="footer__legal-link">
+              Cookie Policy
+            </Link>
+          </div>
+        </div>
+      </div>
+      
+      <button 
+        className={`footer__back-to-top ${isVisible ? 'visible' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Back to top"
+      >
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="24" 
+          height="24" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M18 15l-6-6-6 6" />
+        </svg>
+      </button>
+      
+      <a 
+        href="https://wa.me/+917505853812" 
+        className="footer__whatsapp-float"
+        target="_blank" 
+        rel="noopener noreferrer"
+        aria-label="Chat with us on WhatsApp"
+      >
+        <img 
+          src={whatsappIcon} 
+          alt="WhatsApp" 
+          className="footer__whatsapp-icon"
+          loading="lazy"
+        />
+      </a>
+      
+      <a 
+        href="https://heyzine.com/flip-book/c538e2deab.html#page/1" 
+        className="footer__brochure"
+        target="_blank" 
+        rel="noopener noreferrer"
+        aria-label="Download our brochure"
+      >
+        Download Brochure
+      </a>
+    </footer>
   );
 }
 

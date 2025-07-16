@@ -1,54 +1,100 @@
+import { Link } from 'react-router-dom';
 import "./Service.css";
-import service1 from "../../assets/images/service1.svg";
-import service2 from "../../assets/images/service2.svg";
-import service3 from "../../assets/images/service3.svg";
-import service4 from "../../assets/images/service4.svg";
-import serviceBackground from "../../assets/images/service.webp";
+import { FaAmbulance, FaPills, FaFlask, FaCloud } from 'react-icons/fa';
 
 const Service = () => {
-  return (
-    <div className="service">
-      <h2 className="service-heading">Services</h2>
-      <div className="service-content">
-        <div className="service-points">
-          <div className="service-point">
-            <img src={service1} alt="service 1" />
-            <p>Customized Ambulances</p>
-          </div>
-          <div className="service-point">
-            <img src={service2} alt="service 2" />
-            <p>On Tap Medicine Delivery</p>
-          </div>
-          <div className="service-point">
-            <img src={service3} alt="service 3" />
-            <p>Home Lab Test</p>
-          </div>
-          <div className="service-point">
-            <img src={service4} alt="service 4" />
-            <p>Ambuvian cloud</p>
-          </div>
+  const services = [
+    {
+      icon: <FaAmbulance className="service-icon" />,
+      title: "Customized Ambulances",
+      description: "24/7 emergency medical transportation with advanced life support"
+    },
+    {
+      icon: <FaPills className="service-icon" />,
+      title: "On-Demand Medicine Delivery",
+      description: "Fast and reliable delivery of prescribed medications to your doorstep"
+    },
+    {
+      icon: <FaFlask className="service-icon" />,
+      title: "Home Lab Tests",
+      description: "Comprehensive diagnostic tests conducted in the comfort of your home"
+    },
+    {
+      icon: <FaCloud className="service-icon" />,
+      title: "Ambuvians Cloud",
+      description: "Secure digital health records accessible anytime, anywhere"
+    }
+  ];
 
-          <img src={serviceBackground} alt="" className="service-background" />
+  return (
+    <section className="services-section">
+      <div className="container">
+        <div className="section-title animate-fade-in">
+          <span className="subtitle">Our Services</span>
+          <h2>Comprehensive Healthcare Solutions</h2>
+          <p className="lead">Delivering exceptional medical services with care and compassion</p>
         </div>
-        <div className="service-text">
-          <h4>
-            Your Wellness, Our Priority: Streamlined Solutions for Modern
-            Healthcare
-          </h4>
-          <p>
-            With the advent of telemedicine, you can now consult doctors from
-            the comfort of your home. This convenient and accessible approach to
-            healthcare allows you to receive medical advice, prescriptions, and
-            even treatment recommendations without the need for in-person
-            visits. It&#39;s a game-changer in healthcare, offering convenience
-            and safety.
-          </p>
-          <div className="explore">
-            <button className="explore-btn e">Explore</button>
+
+        <div className="services-container">
+          {services.map((service, index) => (
+            <div className="service-card" key={index}>
+              <div className="service-icon-wrapper">
+                {service.icon}
+              </div>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+              <Link to="/services" className="service-link">
+                Learn more <span>→</span>
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        <div className="service-feature">
+          <div className="feature-content">
+            <span className="subtitle">Why Choose Us</span>
+            <h2>Your Wellness, Our Priority</h2>
+            <p className="lead">
+              We're revolutionizing healthcare with innovative solutions that put you first. 
+              Our integrated platform connects you with medical professionals, emergency 
+              services, and health resources—all in one place.
+            </p>
+            <div className="feature-highlights">
+              <div className="highlight">
+                <div className="highlight-icon">✓</div>
+                <span>24/7 Emergency Response</span>
+              </div>
+              <div className="highlight">
+                <div className="highlight-icon">✓</div>
+                <span>Certified Medical Professionals</span>
+              </div>
+              <div className="highlight">
+                <div className="highlight-icon">✓</div>
+                <span>Advanced Medical Equipment</span>
+              </div>
+              <div className="highlight">
+                <div className="highlight-icon">✓</div>
+                <span>Patient-Centric Care</span>
+              </div>
+            </div>
+            <Link to="/about" className="btn btn-outline">Discover More</Link>
+          </div>
+          <div className="feature-image">
+            <div className="image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                alt="Healthcare professionals" 
+                className="img-fluid"
+              />
+              <div className="experience-badge">
+                <span className="years">10+</span>
+                <span className="text">Years of Excellence</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
