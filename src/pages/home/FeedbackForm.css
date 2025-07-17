@@ -435,6 +435,6 @@ label {
 }
 @media (max-width: 390px) {
   .form-control{
-    max-width: 90%;
+    max-width: 80%;
   }
 }

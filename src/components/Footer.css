@@ -292,7 +292,6 @@
 .footer__links-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
 }
 
 .footer__links-item {
@@ -424,6 +423,11 @@
   flex: 1;
 }
 
+.footer__newsletter-text{
+  font-size: 1.25rem;
+  min-width: 320px;
+} 
+
 .footer__newsletter-title {
   font-size: 1.25rem;
   font-weight: 600;
@@ -444,7 +448,7 @@
   margin: 0 0 1rem 0;
   line-height: 1.5;
   color: var(--footer-text-muted);
-  max-width: 90%;
+  max-width: 100%;
 }
 
 .footer__newsletter-form {
@@ -1089,4 +1093,21 @@ a[href^="geo:"] {
 
 @media screen and (max-width: 320px) {
   /* Styles for screens under 320px */
+}
+@media (max-width: 390px) {
+  .footer__newsletter-form{
+    max-width: 90%;
+  }
+  .footer__newsletter-button{
+    max-width: 90%;
+  }
+  .footer__newsletter-description{
+    font-size: 11px;
+  }
+  .footer__newsletter-title{
+    font-size: 16px;
+  } 
+  .footer__newsletter-hint{
+    font-size: 9.5px;
+  }
 }
